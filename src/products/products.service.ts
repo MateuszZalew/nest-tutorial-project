@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { db, Product } from 'src/db';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -21,5 +22,17 @@ export class ProductsService {
     const newProduct = { ...productData, id: uuidv4() };
     db.products.push(newProduct);
     return newProduct;
+  }
+
+  public updateById(id: Product['id'], productData: UpdateProductDto): void {
+    db.products = db.products.map((p) => {
+      if (p.id === id) {
+        return {
+          ...p,
+          ...productData,
+        };
+      }
+      return p;
+    });
   }
 }
