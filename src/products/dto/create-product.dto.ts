@@ -4,7 +4,7 @@ import { IsInt, IsNotEmpty, Length, IsString, Min } from 'class-validator';
 export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
-  @Length(10, 30)
+  @Length(4, 30)
   name: string;
 
   @IsNotEmpty()
