@@ -1,18 +1,4 @@
-import { Transform } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsString, Length, Min } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateProductDto } from './create-product.dto';
 
-export class UpdateProductDto {
-  @IsNotEmpty()
-  @Length(10, 20)
-  name: string;
-
-  @IsNotEmpty()
-  @IsInt()
-  @Min(0)
-  price: number;
-
-  @IsNotEmpty()
-  @IsString()
-  @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
-  description: string;
-}
+export class UpdateProductDto extends PartialType(CreateProductDto) {}
