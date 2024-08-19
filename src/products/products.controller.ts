@@ -31,6 +31,20 @@ export class ProductsController {
     return product;
   }
 
+  @Get('/extended')
+  getAllWithOrders() {
+    return this.productsService.getAllWithOrders();
+  }
+
+  @Get('/extended/:id')
+  async getWithOrdersById(@Param('id', new ParseUUIDPipe()) id: string) {
+    const product = await this.productsService.getWithOrdersById(id);
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    return product;
+  }
+
   @Delete('/:id')
   async deleteById(@Param('id', new ParseUUIDPipe()) id: string) {
     if (!(await this.productsService.getById(id))) {
